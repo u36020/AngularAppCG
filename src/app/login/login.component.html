@@ -1,0 +1,21 @@
+
+<div class="card">
+  <h5>Sign Up</h5>
+  <form [formGroup]="myForm">
+  <div class="p-field p-grid">
+      <label for="username" class="p-col-fixed" style="width:100px">User Name</label>
+      <div class="p-col">
+          <input id="username" type="text" pInputText formControlName="username" (change)="error = ''"> 
+      </div>
+  </div>
+  <div class="p-field p-grid">
+      <label for="password" class="p-col-fixed" style="width:100px" >Password</label>
+      <div class="p-col">
+          <input id="password" formControlName="password" 
+          (change)="error = ''" type="text" pInputText> 
+      </div>
+  </div>
+  <p class="text-danger" *ngIf="error != ''">{{error}}</p>
+  <button pButton type="submit" (click)="login()" [disabled]="!myForm.valid" label="Login"></button>
+</form>
+</div>

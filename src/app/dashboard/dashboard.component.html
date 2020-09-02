@@ -1,0 +1,88 @@
+<div class="ui-g ui-fluid" *ngIf="filteredData?.length > 0">
+  <div class="ui-lg-8 ui-sm-8 ui-md-12">
+    <div class="ui-inputgroup">
+      <input
+        type="search"
+        pInputText
+        [(ngModel)]="search"
+        placeholder="search"
+      />
+    </div>
+  </div>
+
+  <div class="ui-lg-2 ui-md-4">
+    <div class="ui-inputgroup">
+      <button
+        [disabled]="type == 'card'"
+        pButton
+        type="button"
+        label="Card"
+        (click)="displayChange('card')"
+      ></button>
+      <button
+        [disabled]="type == 'grid'"
+        pButton
+        type="button"
+        label="Grid"
+        (click)="displayChange('grid')"
+      ></button>
+    </div>
+  </div>
+</div>
+<p *ngIf="filteredData?.length == 0" class="margin-auto">
+  <p-progressSpinner></p-progressSpinner>
+</p>
+<!-- <div
+  class="p-grid p-align-start vertical-container"
+ 
+>
+  <div class="p-col-8 p-sm-3">
+    <input
+      type="search"
+      pInputText
+      [(ngModel)]="search"
+      placeholder="search"
+      (keyup)="filterData($event.target.value)"
+    />
+  </div>
+  <div class="p-col-2 p-sm-4">
+   
+  </div>
+  <div class="p-col-2 p-sm-4">
+    
+  </div>
+</div> -->
+<p-card *ngIf="filteredData?.length > 0">
+  <cdk-virtual-scroll-viewport itemSize="50" style="height: 100vh">
+    <div
+      class="p-grid p-align-start vertical-container"
+      [ngClass]="{ 'p-dir-col ': type == 'grid' }"
+    >
+      <div
+        class="p-col-lg-3 p-md-4"
+        *cdkVirtualFor="let item of filteredData | filter: search"
+      >
+        <p-card
+          styleClass="ui-card-shadow"
+          [ngClass]="{
+            'card-height': type != 'grid',
+            'card-width': type == 'grid'
+          }"
+        >
+          <p-header style="height: 5vh">
+            <p class="image-card p-5">{{ item.title }}</p>
+          </p-header>
+          <div class="image-card p-5">
+            <img [src]="item.thumbnailUrl" />
+          </div>
+        </p-card>
+      </div>
+      <div
+        *ngIf="filteredData?.length >= 0 && search != ''"
+        class="margin-auto"
+      >
+        <h1>No data to display !!!</h1>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</p-card>
