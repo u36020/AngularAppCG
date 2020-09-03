@@ -1,5 +1,5 @@
 <div class="ui-g ui-fluid" *ngIf="filteredData?.length > 0">
-  <div class="ui-lg-8 ui-sm-8 ui-md-12">
+  <div class="ui-lg-8 ui-sm-8 ui-md-8">
     <div class="ui-inputgroup">
       <input
         type="search"
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="ui-lg-2 ui-md-4">
+  <div class="ui-lg-2 ui-md-4 hidden-sm hidden-xs">
     <div class="ui-inputgroup">
       <button
         [disabled]="type == 'card'"
@@ -32,26 +32,6 @@
 <p *ngIf="filteredData?.length == 0" class="margin-auto">
   <p-progressSpinner></p-progressSpinner>
 </p>
-<!-- <div
-  class="p-grid p-align-start vertical-container"
- 
->
-  <div class="p-col-8 p-sm-3">
-    <input
-      type="search"
-      pInputText
-      [(ngModel)]="search"
-      placeholder="search"
-      (keyup)="filterData($event.target.value)"
-    />
-  </div>
-  <div class="p-col-2 p-sm-4">
-   
-  </div>
-  <div class="p-col-2 p-sm-4">
-    
-  </div>
-</div> -->
 <p-card *ngIf="filteredData?.length > 0">
   <cdk-virtual-scroll-viewport itemSize="50" style="height: 100vh">
     <div
@@ -69,20 +49,48 @@
             'card-width': type == 'grid'
           }"
         >
-          <p-header style="height: 5vh">
-            <p class="image-card p-5">{{ item.title }}</p>
+          <p-header>
+            <div class="ui-g ui-fluid">
+              <div class="ui-lg-8 ui-sm-6 ui-md-6">
+                <p>
+                  <strong> Album Id: </strong><span>{{ item.albumId }}</span>
+                </p>
+                <p>
+                  <strong>title: </strong> <span>{{ item.title }}</span>
+                </p>
+              </div>
+              <div class="ui-lg-2 ui-md-6">
+                <div>
+                  <img [src]="item.thumbnailUrl" (click)="showImage(item)" />
+                </div>                             
+              </div>
+            </div>
           </p-header>
-          <div class="image-card p-5">
-            <img [src]="item.thumbnailUrl" />
-          </div>
+          <p-footer></p-footer>
         </p-card>
       </div>
       <div
-        *ngIf="filteredData?.length >= 0 && search != ''"
         class="margin-auto"
+        *ngIf="(filteredData | filter: search).length === 0"
       >
         <h1>No data to display !!!</h1>
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
 </p-card>
+
+<p-dialog
+  [(visible)]="showModal"
+  [style]="{ width: '500px', height: '500px' }"
+  [dismissableMask]="true"
+  (onHide)="showModal = false"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="70"
+  [baseZIndex]="10000"
+>
+  <p-header>
+    {{ selectedItem.title }}
+  </p-header>
+  <img class="imageModal" [src]="selectedItem.url" />
+</p-dialog>

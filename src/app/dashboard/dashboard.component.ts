@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/service/dashboard.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,8 @@ import { DashboardService } from '../shared/service/dashboard.service';
 export class DashboardComponent implements OnInit {
 search='';
 filteredData =[];
-display = true
+display = true;
+selectedItem
 type = 'card'
 
   constructor(private dashboardService: DashboardService) { }
@@ -24,6 +26,12 @@ type = 'card'
   // to toggle between grid and card
   displayChange(type) {
     this.type = type;
+  }
+
+  showModal = false;
+  showImage( item) {
+      this.selectedItem = item;
+      this.showModal = true;
   }
 
 }

@@ -16,6 +16,7 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { DialogModule } from "primeng/dialog";
 import { SharedModule } from "./shared/shared.module";
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, FilterPipe],
   imports: [

@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
     transform(list: any[], filterText: string): any {
-      console.log(filterText)
-      return list ? list.filter(item => item.title.search(new RegExp(filterText, 'i')) > -1) : [];
+      return list ? list.filter(item =>  item.title.search(new RegExp(filterText, 'i')) > -1 ||
+                                         item.albumId.toString().search(new RegExp(filterText, 'i')) > -1) : [];
     }
 }

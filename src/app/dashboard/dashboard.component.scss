@@ -7,7 +7,20 @@ input[type="search"] {
   width: 50vw;
 }
 
+img {
+  height: 10vh;
+}
 
+.imageModal {
+  height: 28em;
+}
+
+
+@media (max-width: 767px) {
+  .imageModal {
+    height: 15vh;
+  }
+}
 @keyframes ui-progress-spinner-color {
   100%,
   0% {

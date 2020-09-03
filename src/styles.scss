@@ -43,6 +43,28 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif;background:honeydew }
 .card-width div.ui-card {
   width: 100vw !important;
 }
-.card-height div.ui-card {
-  height: 35vh !important;
+@media (min-width: 991px) {
+  .card-height div.ui-card {
+    height: 15vh !important;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+
+ .pi {
+  font-size: 0.7em;
+  margin-left: 25px;
+}
+
+
+@media (max-width: 767px) {
+  .pi {
+    font-size: 0.7em;
+    margin-left: 25px;
+  }
 }
