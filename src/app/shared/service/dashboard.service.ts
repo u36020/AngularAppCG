@@ -9,8 +9,8 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  getData():Observable<any> {
-    return this.http.get('../../../assets/data/task.json')
+  getData(): Observable<any> {
+    return this.http.get('../../../assets/data/task.json');
   }
 
 }

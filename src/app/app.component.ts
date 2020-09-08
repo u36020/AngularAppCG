@@ -6,7 +6,7 @@ import { AuthService } from './shared/service/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public authService:AuthService){}
+  constructor(public authService: AuthService) {}
   title = 'AngularApp';
   logOut() {
     this.authService.logout();

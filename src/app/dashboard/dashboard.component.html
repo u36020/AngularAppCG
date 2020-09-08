@@ -1,26 +1,32 @@
+
 <div class="ui-g ui-fluid" *ngIf="filteredData?.length > 0">
-  <div class="ui-lg-8 ui-sm-8 ui-md-8">
+  <div class="ui-lg-6 ui-sm-8 ui-md-6">
     <div class="ui-inputgroup">
       <input
         type="search"
         pInputText
-        [(ngModel)]="search"
+      [(ngModel)]="search"
         placeholder="search"
       />
     </div>
   </div>
-
-  <div class="ui-lg-2 ui-md-4 hidden-sm hidden-xs">
+ <div class="ui-lg-3 ui-sm-4 ui-md-3">
+  <div class="ui-inputgroup">
+    <p-dropdown [options]="filterOption" placeholder="Sort By"  [formControl]="sortBy"></p-dropdown>
+    <p-dropdown [options]="sortOrder" placeholder="Sort Order" [formControl]="sortOrderVal"></p-dropdown>
+  </div>
+  </div>
+  <div class="ui-lg-3 ui-md-3 hidden-sm hidden-xs">
     <div class="ui-inputgroup">
       <button
-        [disabled]="type == 'card'"
+        [disabled]="type === 'card'"
         pButton
         type="button"
         label="Card"
         (click)="displayChange('card')"
       ></button>
       <button
-        [disabled]="type == 'grid'"
+        [disabled]="type === 'grid'"
         pButton
         type="button"
         label="Grid"
@@ -29,14 +35,14 @@
     </div>
   </div>
 </div>
-<p *ngIf="filteredData?.length == 0" class="margin-auto">
+<p *ngIf="filteredData?.length === 0" class="margin-auto">
   <p-progressSpinner></p-progressSpinner>
 </p>
 <p-card *ngIf="filteredData?.length > 0">
   <cdk-virtual-scroll-viewport itemSize="50" style="height: 100vh">
     <div
       class="p-grid p-align-start vertical-container"
-      [ngClass]="{ 'p-dir-col ': type == 'grid' }"
+      [ngClass]="{ 'p-dir-col ': type === 'grid' }"
     >
       <div
         class="p-col-lg-3 p-md-4"
@@ -46,23 +52,26 @@
           styleClass="ui-card-shadow"
           [ngClass]="{
             'card-height': type != 'grid',
-            'card-width': type == 'grid'
+            'card-width': type === 'grid'
           }"
         >
           <p-header>
             <div class="ui-g ui-fluid">
               <div class="ui-lg-8 ui-sm-6 ui-md-6">
                 <p>
-                  <strong> Album Id: </strong><span>{{ item.albumId }}</span>
+                  <strong> Album Id: </strong><span>{{ item?.albumId }}</span>
                 </p>
                 <p>
-                  <strong>title: </strong> <span>{{ item.title }}</span>
+                  <strong>title: </strong> <span>{{ item?.title }}</span>
                 </p>
               </div>
-              <div class="ui-lg-2 ui-md-6">
+              <div class="ui-lg-3 ui-md-6">
                 <div>
                   <img [src]="item.thumbnailUrl" (click)="showImage(item)" />
                 </div>                             
+              </div>
+              <div class="ui-lg-1 ui-md-1">
+                <span (click)="selected = !selected; addToFav(item)" id={{item.id}}><i class="pi pi-heart" style="font-size: 1em; margin-left:0px"></i></span>                            
               </div>
             </div>
           </p-header>
@@ -90,7 +99,7 @@
   [baseZIndex]="10000"
 >
   <p-header>
-    {{ selectedItem.title }}
+    {{ selectedItem?.title }}
   </p-header>
-  <img class="imageModal" [src]="selectedItem.url" />
+  <img class="imageModal" [src]="selectedItem?.url" />
 </p-dialog>

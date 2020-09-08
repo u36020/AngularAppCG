@@ -7,16 +7,16 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private router: Router) { }
   sendToken(token: string) {
-    localStorage.setItem("LoggedInUser", token)
+    localStorage.setItem('LoggedInUser', token);
   }
   getToken() {
-    return localStorage.getItem("LoggedInUser")
+    return localStorage.getItem('LoggedInUser');
   }
   isLoggedIn() {
     return this.getToken() !== null;
   }
   logout() {
-    localStorage.removeItem("LoggedInUser");
-    this.router.navigateByUrl('/login')
+    localStorage.removeItem('LoggedInUser');
+    this.router.navigateByUrl('/login');
   }
 }
