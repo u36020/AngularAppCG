@@ -33,6 +33,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   showModal = false;
   selected = false;
   selectedFavItem;
+  showFavModal = false;
+  favList = [];
 
   constructor(
     private dashboardService: DashboardService,
@@ -97,14 +99,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   addToFav(item, evt) {
-    console.log(evt.target.id, item.id);
     this.selectedFavItem = item;
     if (item.id.toString() === evt.target.id && !evt.target.classList.contains('fa-heart')) {
+      this.favList.push(item);
       evt.target.classList.add('fa-heart');
       evt.target.classList.remove('fa-heart-o');
   } else {
+    this.favList.splice(this.favList.findIndex(x => x.id === item.id), 1);
     evt.target.classList.remove('fa-heart');
     evt.target.classList.add('fa-heart-o');
   }
+    console.log(this.favList);
+}
+removeFav(index, evt) {
+  this.favList.splice(index, 1);
+  if (!this.favList.length) { this.showFavModal = false; }
+  const elem = evt.srcElement.id;
+  const element = document.getElementById(elem);
+  element.classList.remove('fa-heart');
+  element.classList.add('fa-heart-o');
 }
 }

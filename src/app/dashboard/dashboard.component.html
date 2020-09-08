@@ -1,6 +1,6 @@
 
 <div class="ui-g ui-fluid" *ngIf="filteredData?.length > 0">
-  <div class="ui-lg-6 ui-sm-8 ui-md-6">
+  <div class="ui-lg-5 ui-sm-8 ui-md-6">
     <div class="ui-inputgroup">
       <input
         type="search"
@@ -10,7 +10,7 @@
       />
     </div>
   </div>
- <div class="ui-lg-3 ui-sm-4 ui-md-3">
+ <div class="ui-lg-2 ui-sm-4 ui-md-3">
   <div class="ui-inputgroup">
     <p-dropdown [options]="filterOption" placeholder="Sort By"  [formControl]="sortBy"></p-dropdown>
     <p-dropdown [options]="sortOrder" placeholder="Sort Order" [formControl]="sortOrderVal"></p-dropdown>
@@ -34,7 +34,19 @@
       ></button>
     </div>
   </div>
-</div>
+  <div class="ui-lg-2 ui-md-3 hidden-sm hidden-xs">
+    <div class="ui-inputgroup">
+      <button
+        [disabled]="!favList.length"
+        pButton
+        type="button"
+        label="View Favourites"
+        (click)="showFavModal =true"
+      ></button>
+    </div>
+    </div>
+    </div>
+  
 <p *ngIf="filteredData?.length === 0" class="margin-auto">
   <p-progressSpinner></p-progressSpinner>
 </p>
@@ -71,7 +83,7 @@
                 </div>                             
               </div>
               <div class="ui-lg-1 ui-md-1">
-                <span (click)="addToFav(item, $event)">
+                <span (click)="addToFav(item, $event)" class="pointer">
                   <i class="fa fa-heart-o" aria-hidden="true" id={{item.id}}></i>
                   </span>
               </div>
@@ -105,3 +117,40 @@
   </p-header>
   <img class="imageModal" [src]="selectedItem?.url" />
 </p-dialog>
+<p-dialog
+  [(visible)]="showFavModal"
+  [style]="{ width: '500px', height: '300px' }"
+  [dismissableMask]="true"
+  (onHide)="showModal = false"
+  [modal]="true"[responsive]="true"
+  [minY]="70"
+  [baseZIndex]="10000"
+>
+  <p-header>
+    Favourite List
+  </p-header>
+  <div *ngFor="let item of favList;let j = index">
+    <div class="ui-g ui-fluid">
+      <div class="ui-lg-8 ui-sm-6 ui-md-6">
+        <p>
+          <strong> Album Id: </strong><span>{{ item?.albumId }}</span>
+        </p>
+        <p>
+          <strong>title: </strong> <span>{{ item?.title }}</span>
+        </p>
+      </div>
+      <div class="ui-lg-3 ui-md-6">
+        <div>
+          <img [src]="item.thumbnailUrl" (click)="showImage(item)" />
+        </div>                             
+      </div>
+      <div class="ui-lg-1 ui-md-1">
+        <span (click)="removeFav(j, $event)">
+          <i class="fa fa-times" aria-hidden="true" id={{item.id}}></i>
+          </span>
+      </div>
+    </div>
+    <hr>
+  </div>
+</p-dialog>
+
