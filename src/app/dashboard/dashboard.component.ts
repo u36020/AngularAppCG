@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { DashboardService } from '../shared/service/dashboard.service';
 import { filterOption, sortOrder } from '../shared/constant';
 import { Subscription } from 'rxjs';
@@ -10,6 +17,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  @ViewChild('icon', { static: false }) icon: ElementRef;
   filterOption = filterOption;
   sortOrder = sortOrder;
   search = '';
@@ -23,7 +31,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subscription1: Subscription;
   subscription2: Subscription;
   showModal = false;
-  selected= false;
+  selected = false;
+  selectedFavItem;
 
   constructor(
     private dashboardService: DashboardService,
@@ -87,7 +96,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  addToFav(item) {
-    console.log(item)
+  addToFav(item, evt) {
+    console.log(evt.target.id, item.id);
+    this.selectedFavItem = item;
+    if (item.id.toString() === evt.target.id && !evt.target.classList.contains('fa-heart')) {
+      evt.target.classList.add('fa-heart');
+      evt.target.classList.remove('fa-heart-o');
+  } else {
+    evt.target.classList.remove('fa-heart');
+    evt.target.classList.add('fa-heart-o');
   }
+}
 }

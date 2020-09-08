@@ -71,7 +71,9 @@
                 </div>                             
               </div>
               <div class="ui-lg-1 ui-md-1">
-                <span (click)="selected = !selected; addToFav(item)" id={{item.id}}><i class="pi pi-heart" style="font-size: 1em; margin-left:0px"></i></span>                            
+                <span (click)="addToFav(item, $event)">
+                  <i class="fa fa-heart-o" aria-hidden="true" id={{item.id}}></i>
+                  </span>
               </div>
             </div>
           </p-header>
